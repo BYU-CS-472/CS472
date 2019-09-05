@@ -2,11 +2,65 @@
 
 This short tutorial demonstrates some basic functionality of Python and NumPy, as well as a custom Arff loader class.
 
+### Environment
+For reproducibility, it's important to create an "environment" that will house the precise set of modules/versions that our code is guaranteed to work with. They are many ways to manage environments, including Anaconda (or mini-conda), virtualenv, and Docker. For this class, we recommend using [Anaconda](https://www.anaconda.com/distribution/#download-section). After installing Anaconda, you can create an environment. For CS 472, we should be able to run your code with an environment created with the commandline command:
+
+     ```
+     conda create -n cs472 matplotlib=3.0.3 numpy=1.16.3 numpy-base=1.16.3 pandas=0.24.2 python=3.6.8 scikit-learn=0.20.3 scipy=1.2.1```
+
+To activate the CS472 environment you just created, run:
+`conda activate cs472`
+
+A good practice is to store your environment as a `.yaml` file.
+```
+name: cs472
+channels:
+ - conda-forge
+ - defaults
+dependencies:
+- matplotlib=3.0.3 
+- numpy=1.16.3 
+- numpy-base=1.16.3 
+- pandas=0.24.2 
+- python=3.6.8 
+- scikit-learn=0.20.3 
+- scipy=1.2.1
+ - pip:
+   - liac-arff=2.3.1
+```
+
+To create an environment from a `.yaml` file, you can run:
+`conda env create -f MY_ENV.yaml`
+
+To export an evironment to a `.yaml` file, run:
+`conda env export > environment.yaml`
+
+To update your environment after modifying the `.yaml` file, first *activate your environment*, then run:
+`conda env update -f environment.yaml`
+
+#### Jupyter Notebooks
+To add your environment to a Jupyter Notebook:
+* Install Jupyter Labs  or Jupyter Notebook
+* Create your environment 
+* Activate your environment
+* Run the command `pip install ipykernel && python -m ipykernel install --user --name MY_ENV_NAME`
+
+#### PyCharm
+To add your environment to PyCharm:
+* Create a new project
+* Open Settings (File -> Settings, or Ctrl+Alt+S)
+* In the left column, find "Project: YOUR_PROJECT_NAME"
+* Click "Project Interpretter"
+* Click the gear icon in the top right, then "show all"
+* In the new dialog, click the + sign in the top right
+* In the left column of the new dialog, click "Conda Environment"
+* In the right pane, click "Existing Environment", and replace the "Interpreter:" line with your newly created environment
+* Click "OK", "OK", and "OK"
+
 ### Modules
 
-First, import the modules you will be using. For this example, arff.py should be in the same folder as your script.
+First, import the modules you will be using.
 ```
-import arff
 import numpy as np
 ```
 
@@ -30,9 +84,19 @@ my_array[row_idx]
 ```
 
 ### Arff object class
-Some of the datasets we use are stored in an Attribute-Relation File Format (.arff) file format. These can be loaded using the `arff` module:
+You are responsible for loading data from Comma-Separated Values (`.csv`) and Attribute-Relation File Format (`.arff`) files into your learner class. You have the following options:
+
+* Use the scikit-learn `arff` loader (`scipy.io.arff.loadarff`)
+* Use `liac-arff=2.3.1` (to install, run `pip install liac-arff=2.3.1`)
+* Create your own `arff` loader (perhaps using `pandas`)
+* Use the Arff class in the `arff.py` file in this repository
+
+If you choose to use the `arff` class, it has some useful features for dealing with `arff` files. However, *you should still plan on only passing the underlying data (i.e. `my_arff.data`, a NumPy array) to your learner class `fit`, `predict`, etc. functions.*
+
+If you're using the provided `Arff` class, `arff.py` should be in the same folder as your script. Now we can load `.arff` files using the `arff` module:
 
 ```
+import arff
 arff_path = r"./test/datasets/creditapproval.arff"
 credit_approval = arff.Arff(arff=arff_path, label_count=1)
 ```
