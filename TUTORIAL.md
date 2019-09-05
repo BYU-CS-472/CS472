@@ -5,11 +5,13 @@ This short tutorial demonstrates some basic functionality of Python and NumPy, a
 ### Environment
 For reproducibility, it's important to create an "environment" that will house the precise set of modules/versions that our code is guaranteed to work with. They are many ways to manage environments, including Anaconda (or mini-conda), virtualenv, and Docker. For this class, we recommend using [Anaconda](https://www.anaconda.com/distribution/#download-section). After installing Anaconda, you can create an environment. For CS 472, we should be able to run your code with an environment created with the commandline command:
 
-     ```
-     conda create -n cs472 matplotlib=3.0.3 numpy=1.16.3 numpy-base=1.16.3 pandas=0.24.2 python=3.6.8 scikit-learn=0.20.3 scipy=1.2.1```
+ ```
+ conda create -n cs472 matplotlib=3.0.3 numpy=1.16.3 numpy-base=1.16.3 pandas=0.24.2 python=3.6.8 scikit-learn=0.20.3 scipy=1.2.1
+ ```
 
 To activate the CS472 environment you just created, run:
-`conda activate cs472`
+
+```conda activate cs472```
 
 A good practice is to store your environment as a `.yaml` file.
 ```
@@ -30,13 +32,16 @@ dependencies:
 ```
 
 To create an environment from a `.yaml` file, you can run:
-`conda env create -f MY_ENV.yaml`
+
+```conda env create -f MY_ENV.yaml```
 
 To export an evironment to a `.yaml` file, run:
-`conda env export > environment.yaml`
+
+```conda env export > environment.yaml```
 
 To update your environment after modifying the `.yaml` file, first *activate your environment*, then run:
-`conda env update -f environment.yaml`
+
+```conda env update -f environment.yaml```
 
 #### Jupyter Notebooks
 To add your environment to a Jupyter Notebook:
@@ -83,14 +88,16 @@ my_array[row_idx]
 
 ```
 
-### Arff object class
+### Loading the data
 You are responsible for loading data from Comma-Separated Values (`.csv`) and Attribute-Relation File Format (`.arff`) files into your learner class. You have the following options:
 
 * Use the scikit-learn `arff` loader (`scipy.io.arff.loadarff`)
 * Use `liac-arff=2.3.1` (to install, run `pip install liac-arff=2.3.1`)
-* Create your own `arff` loader (perhaps using `pandas`)
-* Use the Arff class in the `arff.py` file in this repository
+* Create your own `arff` loader
+* Use the `Arff` class in the `arff.py` file in this repository
 
+
+#### Arff object class (optional)
 If you choose to use the `arff` class, it has some useful features for dealing with `arff` files. However, *you should still plan on only passing the underlying data (i.e. `my_arff.data`, a NumPy array) to your learner class `fit`, `predict`, etc. functions.*
 
 If you're using the provided `Arff` class, `arff.py` should be in the same folder as your script. Now we can load `.arff` files using the `arff` module:
@@ -103,17 +110,17 @@ credit_approval = arff.Arff(arff=arff_path, label_count=1)
 
 Here, `credit_approval` is an Arff object. The Arff object is mostly a wrapper around a 2D numpy array, which is stored as the 'data' Arff class variable, i.e. `credit_approval.data`. The Arff object also contains all the information needed to recreate the Arff file, including feature names, the number of columns that are considered "outputs" (labels), whether each feature is nominal or continuous, and the list of possible values for nominal features. Note that:
 
-* The Arff object automatically encodes nominal/string features as integers. 
-* The Arff object presently supports multiple labels, which are assumed to be the rightmost column(s). The number of labels should be passed explicitly with `label_count`, which is typically 1.
+* The `Arff` object automatically encodes nominal/string features as integers. 
+* The `Arff` object supports multiple labels, which are assumed to be the rightmost column(s). The number of label columns should be passed explicitly with `label_count`, which is typically 1.
 * `print(credit_approval)` will print the object as Arff text. Alternatively, a .arff style string can be obtained by taking `str(credit_approval)`.
 
-The Arff object can also be sliced like traditional numpy arrays. E.g., the first row of data as a numpy array would be:
+The `Arff` object can also be sliced like traditional numpy arrays. E.g., the first row of data as a numpy array would be:
 
 ```
 credit_approval[0,:]
 ```
 
-Note that slicing this way returns a numpy 2D array, not an Arff object. To create a new Arff object that has been sliced, one can use:
+Note that slicing this way returns a numpy 2D array, not an `Arff` object. To create a new `Arff` object that has been sliced, one can use:
 
 ```
 # Get first 10 rows, first 3 columns
@@ -146,7 +153,7 @@ This may be helpful, since the Arff object has methods like:
 * `is_nominal(col)`: Returns true if the column is nominal
 * `shuffle(buddy=None)`: Shuffles the data; supplying a buddy Arff with the same number of rows will shuffle both objects in the same order.
 
-#### Other examples:
+##### More Arff object examples:
 ```
 # Get 1st row of features as an ARFF
 features = credit_approval.get_features(slice(0,1))
@@ -166,12 +173,6 @@ print(features.shape)
 
 You will be creating classes for various machine learning models this semester, e.g. "MyPerceptron". This should inherit from `sklearn.linear_model` and override
 at least the `fit()`, `predict()`, and `score()` functions. It should probably also have a constructor, i.e. `def __init__(self, argument1, argument2):` that can be used to initialize learner weights, hyperparameters, etc.
-
-### Example using sci-kit learn
-[insert here]
-
-### Example cross-validation
-[insert here]
 
 ### Graphing
 A tiny graphing wrapper around matplotlib is included. See ```graph_tools.py```.
