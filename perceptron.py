@@ -20,7 +20,7 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
     ### After the model is trained you can called predict and it makes a prediction on the given input
     def predict(self,test):
         pass
-    ### you see how well the model does on the given data and labels/targets. Return Accuracy.
+    ### you see how well the model does on the given data and labels/targets. Returns Accuracy.
     def score(self,data,target):
         pass
     ### Given for your convenience
@@ -29,6 +29,6 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
         np.random.shuffle(temp)
         data,labels = temp[:, :data.shape[1]], temp[:, data.shape[1]:]
         return data,labels
-    ### Not required by sk-learn but required by us for grading. Return the weights.
+    ### Not required by sk-learn but required by us for grading. Returns the weights.
     def getWeights(self):
         pass
