@@ -304,51 +304,6 @@ class Arff:
         nominal =self.unique_value_count(col) > 0
         return nominal
 
-    def shuffle(self, buddy=None):
-        """Shuffle the row order. If a buddy Arff is provided, it will be shuffled in the same order.
-        """
-        if not buddy:
-            np.random.shuffle(self.data)
-        else:  # need same number of rows
-            if (self.data.shape[0] != buddy.data.shape[0]):
-                raise Exception
-            temp = np.hstack((self.data, buddy.data))
-            np.random.shuffle(temp)
-            self.data, buddy.data = temp[:, :self.shape[1]], temp[:, self.shape[1]:]
-
-    def column_mean(self, col):
-        """Get the mean of the specified column"""
-        #col = slice(0, None) if col is None else col
-        col_data = self.data[:,col]
-        return np.mean(col_data[np.isfinite(col_data)])
-
-    def column_min(self, col):
-        """Get the min value in the specified column"""
-        #col = slice(0, None) if col is None else col
-        col_data = self.data[:,col]
-        return np.min(col_data[np.isfinite(col_data)])
-
-    def column_max(self, col):
-        """Get the max value in the specified column"""
-        #col = slice(0, None) if col is None else col
-        col_data = self.data[:,col]
-        return np.max(col_data[np.isfinite(col_data)])
-
-    def most_common_value(self, col):
-        """Get the most common value in the specified column"""
-        #col = slice(0, None) if col is None else col
-        col_data = self.data[:,col]
-        (val, count) = stats.mode(col_data[np.isfinite(col_data)])
-        return val[0]
-
-    def normalize(self):
-        """Normalize each column of continuous values"""
-        for i in range(self.shape[1]):
-            if self.unique_value_count(i) == 0:  # is continuous
-                min_val = self.column_min(i)
-                max_val = self.column_max(i)
-                self.data[:, i] = (self.data[:, i] - min_val) / (max_val - min_val)
-
     def get_arff_as_string(self):
         """ Print arff class as arff-style string
             Returns:
@@ -419,32 +374,6 @@ class Arff:
         else:
             raise Exception("Unrecognized data type")
 
-    def append_columns(self, columns, attr_names=None):
-        """ Add columns from 2D array-like object to "data" object (2D numpy array). Number of rows must match existing 2D numpy array.
-        Args:
-            columns (array-like): columns can be an Arff, numpy array, or list
-            attr_names (list): Names of columns to be appended
-        """
-        columns_to_add = self.nd_array(columns)
-        if self.shape[0] != columns_to_add.shape[0]:
-            raise Exception("Incompatible number of rows: {}, {}".format(self.shape[0], columns_to_add.shape[0]))
-        self.data = np.concatenate([self.data, columns_to_add], axis=1)
-
-        if not attr_names is None:
-            self.attr_names += attr_names
-        return self
-
-    def append_rows(self, rows):
-        """ Add rows from 2D array-like object to "data" object (2D numpy array). Number of columns must match existing 2D numpy array.
-        Args:
-            rows (array-like): rows can be a Arff, numpy array, or list
-        """
-        rows_to_add = self.nd_array(rows)
-        if self.shape[1] != rows_to_add.shape[1]:
-            raise Exception("Incompatible number of columns: {}, {}".format(self.shape[1], rows_to_add.shape[1]))
-        self.data = np.concatenate([self.data, rows_to_add], axis=0)
-        return self
-
     def get_nominal_idx(self):
         nominal_idx = [i for i,feature_type in enumerate(self.attr_types) if feature_type=="nominal"]
         return nominal_idx if nominal_idx else None
@@ -468,21 +397,6 @@ class Arff:
         # x = self.create_subset_arff(index[0], index[1])
         # return x
         return self.data[index]
-
-    # def slice(self, index):
-    #     """
-    #     Args:
-    #         index:
-    #
-    #     Returns:
-    #
-    #     """
-    #     # This will slice ARFF and return smaller arffs; it's considerably slower than numpy slicing
-    #     if not self.is_iterable(index):
-    #         index = [index, slice(0,None)]
-    #     x = self.create_subset_arff(index[0], index[1])
-    #     return x
-
 
     def __setitem__(self, key, value):
         self.data[key] = value
@@ -523,14 +437,3 @@ class Arff:
             return value == self.MISSING
         elif np.isnan(self.MISSING):
             return np.isnan(value)
-
-class DoubleDict(dict):
-    """ A barebones, two-way dictionary. Keys and values must be unique, one-to-one.
-    """
-    def __setitem__(self, key, value):
-        dict.__setitem__(self, key, value)
-        dict.__setitem__(self, value, key)
-
-    def __delitem__(self, key):
-        dict.__delitem__(self, self[key])
-        dict.__delitem__(self, key)
