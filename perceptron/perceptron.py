@@ -2,11 +2,12 @@ import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 
 ### NOTE: The only methods you are required to have are:
-#   predict
-#   fit
-#   score
-#   get_weights
-#   They must take at least the parameters below, exactly as specified.
+#   * predict
+#   * fit
+#   * score
+#   * get_weights
+#   They must take at least the parameters below, exactly as specified. The output of
+#   get_weights must be in the same format as the example provided.
 
 class PerceptronClassifier(BaseEstimator,ClassifierMixin):
 

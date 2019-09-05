@@ -1,4 +1,3 @@
-### This is complete ###
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 
@@ -43,14 +42,22 @@ class BaselineClassifier(BaseEstimator,ClassifierMixin):
             y (array-like): A 2D numpy array with targets
 
         Returns:
-
+            float: The accuracy
         """
-        h,w = X.shape
-        predictions = self.predict(X)
-        diff = y.reshape(-1, 1) - predictions.reshape(-1, 1)
-        diff[diff != 0] = 1
-        incorrect = np.sum(diff)
-        return 1 - (incorrect / h)
+        return 0
 
-if __name__ == "__test__":
-    pass
+
+### This file is meant to be imported. However, if you want something to happen when you run it directly,
+#   e.g. "python baseline.py", you can put that in the block below. This can be a convenient place to put
+#   a test case.
+
+if __name__ == "__main__":
+    my_baseline_classifier = BaselineClassifier()
+    train_data = np.array(range(0, 9)).reshape(3, 3) # create 3x3 array, 0 through 8
+    labels = np.array([0,0,5])  # create labels
+    test_data = np.array([[1,1,1],[1,4,4]])
+
+    my_baseline_classifier.fit(train_data, labels) # run fit; should find the modal (most common) label (0)
+    prediction = my_baseline_classifier.predict(test_data) # doesn't matter what my data looks like, baseline will always return 0
+    print(prediction)
+
