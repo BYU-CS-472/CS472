@@ -17,18 +17,18 @@ A good practice is to store your environment as a `.yaml` file.
 ```
 name: cs472
 channels:
- - conda-forge
- - defaults
+  - defaults
 dependencies:
-- matplotlib=3.0.3 
-- numpy=1.16.3 
-- numpy-base=1.16.3 
-- pandas=0.24.2 
-- python=3.6.8 
-- scikit-learn=0.20.3 
-- scipy=1.2.1
- - pip:
-   - liac-arff=2.3.1
+  - matplotlib=3.0.3
+  - numpy=1.16.3
+  - numpy-base=1.16.3
+  - pandas=0.24.2
+  - python=3.6.8
+  - scikit-learn=0.20.3
+  - scipy=1.2.1
+  - pip=19.1.1
+  - pip:
+    - liac-arff==2.3.1
 ```
 
 To create an environment from a `.yaml` file, you can run:
@@ -92,7 +92,7 @@ my_array[row_idx]
 You are responsible for loading data from Comma-Separated Values (`.csv`) and Attribute-Relation File Format (`.arff`) files into your learner class. You have the following options:
 
 * Use the scikit-learn `arff` loader (`scipy.io.arff.loadarff`)
-* Use `liac-arff=2.3.1` (to install, run `pip install liac-arff=2.3.1`)
+* Use `liac-arff=2.3.1` (to install, run `pip install liac-arff==2.3.1`)
 * Create your own `arff` loader
 * Use the `Arff` class in the `arff.py` file in this repository
 
