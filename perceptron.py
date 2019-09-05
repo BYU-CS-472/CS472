@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 
+
 class PerceptronClassifier(BaseEstimator,ClassifierMixin):
     
     #### you can add your own params for debug purposes but you need to have
