@@ -1,2 +1,2 @@
 # CS472
-Helps for CS 472
+This repository contains project scaffolding, hints, and data for CS 472.
