@@ -9,9 +9,11 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 #   They must take at least the parameters below, exactly as specified. The output of
 #   get_weights must be in the same format as the example provided.
 
+from sklearn.linear_model import Perceptron
+
 class PerceptronClassifier(BaseEstimator,ClassifierMixin):
 
-    def __init__(self, lr=.1, shuffle=True, initial_weights=None):
+    def __init__(self, lr=.1, shuffle=True):
         """ Initialize class with chosen hyperparameters.
 
         Args:
@@ -20,19 +22,22 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
         """
         self.lr = lr
         self.shuffle = shuffle
-        self.initial_weights = self.initialize_weights() if not initial_weights else initial_weights
 
-    def fit(self, X, y):
+    def fit(self, X, y, initial_weights=None):
         """ Fit the data; run the algorithm and adjust the weights to find a good solution
 
         Args:
             X (array-like): A 2D numpy array with the training data, excluding targets
             y (array-like): A 2D numpy array with the training targets
+            initial_weights (array-like): allows the user to provide initial weights
 
         Returns:
+            self: this allows this to be chained, e.g. model.fit(X,y).predict(X_test)
 
         """
-        pass
+        self.initial_weights = self.initialize_weights() if not initial_weights else initial_weights
+
+        return self
 
     def predict(self, X):
         """ Predict all classes for a dataset X
@@ -41,7 +46,8 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
             X (array-like): A 2D numpy array with the training data, excluding targets
 
         Returns:
-
+            array, shape (n_samples,)
+                Predicted target values per element in X.
         """
         pass
 
@@ -55,15 +61,18 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
         return [0]
 
     def score(self, X, y):
-        """ Return accuracy of model on a given dataset.
+        """ Return accuracy of model on a given dataset. Must implement own score function.
+
         Args:
             X (array-like): A 2D numpy array with data, excluding targets
             y (array-like): A 2D numpy array with targets
 
         Returns:
-
+            score : float
+                Mean accuracy of self.predict(X) wrt. y.
         """
-        pass
+
+        return 0
 
     def _shuffle_data(self, X, y):
         """ Shuffle the data! This _ prefix suggests that this method should only be called internally.

@@ -44,7 +44,9 @@ class BaselineClassifier(BaseEstimator,ClassifierMixin):
         Returns:
             float: The accuracy
         """
-        return 0
+
+        # This calls the parent class score function; for our labs, you must code your own score function
+        return super().score(X,y)
 
 
 ### This file is meant to be imported. However, if you want something to happen when you run it directly,
