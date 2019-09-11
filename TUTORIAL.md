@@ -50,6 +50,10 @@ To add your environment to a Jupyter Notebook:
 * Activate your environment
 * Run the command `pip install ipykernel && python -m ipykernel install --user --name MY_ENV_NAME`
 
+If importing your class into Jupyter, make sure you run `%reload_ext autoreload`
+and `%autoreload 2` so your learner module reloads if you make changes to it (otherwise, restart the kernel under the "Kernel" file menu).
+
+
 #### PyCharm
 To add your environment to PyCharm:
 * Create a new project
@@ -200,3 +204,25 @@ graph_tools.graph(x=x, y=y, labels=labels, xlim=(0,30), ylim=(0,30))
 ```
 
 ![alt text](https://raw.githubusercontent.com/cs478ta/CS478.github.io/master/toolkitPython/Scatter.png)
+
+
+# Testing
+
+## Random train/test split
+```
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+```
+
+## Cross-validation
+```
+from sklearn.model_selection import cross_validate
+lasso = linear_model.Lasso()
+cv_results = cross_validate(lasso, X, y, cv=3)
+scores = cross_validate(lasso, X, y, cv=3,
+                        scoring=('r2', 'neg_mean_squared_error'),
+                        return_train_score=True)
+print(scores['test_neg_mean_squared_error'])      
+```
+
+
