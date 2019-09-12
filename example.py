@@ -5,6 +5,7 @@ from sklearn.model_selection import cross_val_score, cross_validate
 from sklearn.linear_model.perceptron import Perceptron
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
 
 ### Very simple baseline classifier example
 my_baseline_classifier = BaselineClassifier()
@@ -18,11 +19,11 @@ my_baseline_classifier.fit(train_data, train_labels)  # run fit; should find the
 prediction = my_baseline_classifier.predict(test_data)  # doesn't matter what my data looks like, baseline will always return 0
 print(f"Baseline prediction: {prediction}")
 
-# Calculate score (accuracy)
-test_score = my_baseline_classifier.score(test_labels, test_labels)
+# Calculate score (accuracy) from data/labels
+test_score = my_baseline_classifier.score(test_data, test_labels)
 print(f"Test score: {test_score}")
 
-# Calculate accuracy from predictions
+# Calculate accuracy from labels/predictions
 test_score2 = accuracy_score(test_labels, prediction)
 
 ## Cross validation
@@ -54,4 +55,14 @@ print(credit_approval.data) # the numpy array
 x = credit_approval[:,1]
 y = credit_approval[:,2]
 train_labels = credit_approval[:, -1]
-graph_tools.graph(x=x, y=y, labels=train_labels, xlim=(0, 30), ylim=(0, 30), title="Credit Plot")
+graph_tools.graph(x=x, y=y, labels=train_labels, xlim=(0, 30), ylim=(0, 30), title="Credit Plot") # little grapher wrapper
+
+## Same idea, but manually graphing each label / category
+x1 = x[np.where(train_labels==1)]
+y1 = y[np.where(train_labels==1)]
+x0 = x[np.where(train_labels==0)]
+y0 = y[np.where(train_labels==0)]
+
+plt.scatter(x1, y1)
+plt.scatter(x0, y0)
+plt.show()
