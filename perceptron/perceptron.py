@@ -23,7 +23,7 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
         self.lr = lr
         self.shuffle = shuffle
 
-    def fit(self, X, y, initial_weights=None):
+    def fit(self, X, y, initial_weights=None, stop_thresh=0.01):
         """ Fit the data; run the algorithm and adjust the weights to find a good solution
 
         Args:
@@ -35,7 +35,30 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
             self: this allows this to be chained, e.g. model.fit(X,y).predict(X_test)
 
         """
-        self.initial_weights = self.initialize_weights() if not initial_weights else initial_weights
+        num_features = len(x[0])
+        if not initial_weights:
+            self.W = self.initialize_weights(num_features)
+        else:
+            self.W = initial_weights
+        b = np.ones(num_features)
+        X_b = np.append(X, b, axis=1)
+
+        score = self.score(X, y)
+        while True:
+            for i in range(len(X)):
+                z = X_b[i] * self.W
+                if z > 0:
+                    z = 1
+                else:
+                    z = 0
+                change_coeff = (y[i] - z) * self.lr
+                change_W = X[i] * change_coeff
+                self.W += change_W
+            
+            new_score = self.score(X, y)
+            if score - new_score < stop_thresh:
+                break
+            score = new_score
 
         return self
 
@@ -51,28 +74,25 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
         """
         pass
 
-    def initialize_weights(self):
+    def initialize_weights(self, size):
         """ Initialize weights for perceptron. Don't forget the bias!
 
         Returns:
-
+            W (array-like): set of weights of specified size + 1 (to include bias)
         """
-
-        return [0]
+        W = np.zeros(size + 1)
+        return W
 
     def score(self, X, y):
-        """ Return accuracy of model on a given dataset. Must implement own score function.
+        num_features = len(X[0])
+        b = np.ones(num_features)
+        X_b = np.append(X, b, axis=1)
+        z = X_b * self.W
+        z = np.where(z > 0, 1, 0)
+        diff = np.absolute((z - y))
+        acc = 1 - (np.sum(diff) / len(diff))
 
-        Args:
-            X (array-like): A 2D numpy array with data, excluding targets
-            y (array-like): A 2D numpy array with targets
-
-        Returns:
-            score : float
-                Mean accuracy of self.predict(X) wrt. y.
-        """
-
-        return 0
+        return acc
 
     def _shuffle_data(self, X, y):
         """ Shuffle the data! This _ prefix suggests that this method should only be called internally.
