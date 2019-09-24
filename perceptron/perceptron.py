@@ -70,7 +70,6 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
                     break
             else:
                 new_score = self.score(X, y)
-                print(new_score)
                 if score - new_score < stop_thresh:
                     num_bad_rounds += 1
                     if num_bad_rounds >= num_stopping_rounds:

@@ -44,8 +44,8 @@ def created_datasets():
     a = Arff(arff='data/perceptron/created/nonlinear.arff')
     data = a.get_features().data
     labels = a.get_labels().data
-    p = PerceptronClassifier(shuffle=True)
-    p.fit(data, labels, deterministic=10)
+    p = PerceptronClassifier(shuffle=True, lr=0.0001)
+    p.fit(data, labels, stop_thresh=0.0001, num_stopping_rounds=20)
     print(weights_printout.format(p.get_weights()))
     print(score_printout.format(p.score(data, labels)))
 
