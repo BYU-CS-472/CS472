@@ -8,8 +8,6 @@ import logging
 import copy
 
 logger = logging.getLogger(__name__)
-logger.setLevel("INFO")
-logging.basicConfig()
 
 
 class Arff:

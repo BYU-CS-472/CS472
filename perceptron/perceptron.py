@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
+import pdb
 
 ### NOTE: The only methods you are required to have are:
 #   * predict
@@ -23,42 +24,60 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
         self.lr = lr
         self.shuffle = shuffle
 
-    def fit(self, X, y, initial_weights=None, stop_thresh=0.01):
+    def fit(self, X, y, initial_weights=None, stop_thresh=0.01, num_stopping_rounds=5, deterministic=-1):
         """ Fit the data; run the algorithm and adjust the weights to find a good solution
 
         Args:
             X (array-like): A 2D numpy array with the training data, excluding targets
             y (array-like): A 2D numpy array with the training targets
             initial_weights (array-like): allows the user to provide initial weights
-
+            stop_thresh (float): threshold of desired accuracy change before training stops
+            num_stopping_rounds (int): number of rounds that need to pass without improvement beyond stop_thresh to stop
         Returns:
             self: this allows this to be chained, e.g. model.fit(X,y).predict(X_test)
 
         """
-        num_features = len(x[0])
+        num_features = len(X[0])
         if not initial_weights:
             self.W = self.initialize_weights(num_features)
         else:
             self.W = initial_weights
-        b = np.ones(num_features)
-        X_b = np.append(X, b, axis=1)
+        num_instances = len(X)
+        b = np.ones((num_instances, 1))
+        X_copy = np.append(X, b, axis=1)
+        y_copy = y.copy()
 
         score = self.score(X, y)
+        num_bad_rounds = 0
+        rounds_left = 0
+        if deterministic > 0:
+            rounds_left = deterministic
+
         while True:
-            for i in range(len(X)):
-                z = X_b[i] * self.W
-                if z > 0:
-                    z = 1
-                else:
-                    z = 0
-                change_coeff = (y[i] - z) * self.lr
-                change_W = X[i] * change_coeff
+            if self.shuffle:
+                X_copy, y_copy = self._shuffle_data(X_copy, y_copy)
+            for i in range(len(X_copy)):
+                z = np.dot(X_copy[i], self.W)
+                z = np.where(z > 0, 1, 0)
+                change_coeff = (y_copy[i] - z) * self.lr
+                change_W = X_copy[i] * change_coeff
+                change_W = change_W.reshape(-1, 1)
                 self.W += change_W
-            
-            new_score = self.score(X, y)
-            if score - new_score < stop_thresh:
-                break
-            score = new_score
+
+            if deterministic > 0:
+                rounds_left -= 1
+                if rounds_left <= 0:
+                    break
+            else:
+                new_score = self.score(X, y)
+                print(new_score)
+                if score - new_score < stop_thresh:
+                    num_bad_rounds += 1
+                    if num_bad_rounds >= num_stopping_rounds:
+                        break
+                else:
+                    num_bad_rounds = 0
+                score = new_score
 
         return self
 
@@ -72,7 +91,12 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
             array, shape (n_samples,)
                 Predicted target values per element in X.
         """
-        pass
+        num_instances = len(X)
+        b = np.ones((num_instances, 1))
+        X_b = np.append(X, b, axis=1)
+        z = np.dot(X_b , self.W)
+        z = np.where(z > 0, 1, 0)
+        return z
 
     def initialize_weights(self, size):
         """ Initialize weights for perceptron. Don't forget the bias!
@@ -80,14 +104,14 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
         Returns:
             W (array-like): set of weights of specified size + 1 (to include bias)
         """
-        W = np.zeros(size + 1)
+        W = np.zeros((size + 1, 1))
         return W
 
     def score(self, X, y):
-        num_features = len(X[0])
-        b = np.ones(num_features)
+        num_instances = len(X)
+        b = np.ones((num_instances, 1))
         X_b = np.append(X, b, axis=1)
-        z = X_b * self.W
+        z = np.dot(X_b , self.W)
         z = np.where(z > 0, 1, 0)
         diff = np.absolute((z - y))
         acc = 1 - (np.sum(diff) / len(diff))
@@ -99,8 +123,12 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
             It might be easier to concatenate X & y and shuffle a single 2D array, rather than
              shuffling X and y exactly the same way, independently.
         """
-        pass
+        tmp = np.append(X, y, axis=1)
+        np.random.shuffle(tmp)
+        X = tmp[:, :-1]
+        y = tmp[:, -1].reshape(-1, 1)
+        return X, y
 
     ### Not required by sk-learn but required by us for grading. Returns the weights.
     def get_weights(self):
-        pass
+        return self.W
