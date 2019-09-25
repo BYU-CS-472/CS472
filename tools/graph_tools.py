@@ -17,7 +17,7 @@ def graph_function(func,save_path=None):
     plt.show()
 
 def graph(x, y, labels=None, title="Untitled Graph", xlabel="X", ylabel="Y", points=True, style='fivethirtyeight',
-          xlim=None, ylim=None, legend=True, save_path=None):
+          xlim=None, ylim=None, legend=True, save_path=None, func=None):
 
     """ Graph results
     Args:
@@ -63,14 +63,18 @@ def graph(x, y, labels=None, title="Untitled Graph", xlabel="X", ylabel="Y", poi
         idx = np.where(labels==l)
         plot_list.append(ax.plot(x[idx],y[idx], point_style, label = str(l))[0])
 
+    if not func is None:
+        var = np.linspace(-1, 1, 100)
+        plt.plot(var, func(var))
+
     # Put legend below
     if legend:
-        ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), fancybox=True, shadow=False, ncol=5, handles=plot_list,
-                      facecolor = 'white', edgecolor = 'black')
-    plt.show()
-
+        # fig.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), fancybox=True, shadow=False, ncol=5, handles=plot_list,
+        #               facecolor = 'white', edgecolor = 'black')
+        ax.legend()
     if save_path:
         fig.savefig(save_path)
+    plt.show()
 
 
 if __name__ == "__main__":

@@ -23,6 +23,7 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
         """
         self.lr = lr
         self.shuffle = shuffle
+        self.errors = []
 
     def fit(self, X, y, initial_weights=None, stop_thresh=0.01, num_stopping_rounds=5, deterministic=-1):
         """ Fit the data; run the algorithm and adjust the weights to find a good solution
@@ -37,46 +38,45 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
             self: this allows this to be chained, e.g. model.fit(X,y).predict(X_test)
 
         """
-        num_features = len(X[0])
+        h, w = X.shape
         if not initial_weights:
-            self.W = self.initialize_weights(num_features)
+            self.W = self.initialize_weights(w)
         else:
             self.W = initial_weights
-        num_instances = len(X)
-        b = np.ones((num_instances, 1))
-        X_copy = np.append(X, b, axis=1)
-        y_copy = y.copy()
+        b = np.ones((h, 1))
+        X = np.append(X, b, axis=1)
 
-        score = self.score(X, y)
+        lowest_err = self._calc_error(X, y)
+        self.errors.append(lowest_err)
         num_bad_rounds = 0
-        rounds_left = 0
-        if deterministic > 0:
-            rounds_left = deterministic
+        epoch = 0
 
         while True:
+            epoch += 1
             if self.shuffle:
-                X_copy, y_copy = self._shuffle_data(X_copy, y_copy)
-            for i in range(len(X_copy)):
-                z = np.dot(X_copy[i], self.W)
+                X, y = self._shuffle_data(X, y)
+            for i in range(len(X)):
+                z = np.dot(X[i], self.W)
                 z = np.where(z > 0, 1, 0)
-                change_coeff = (y_copy[i] - z) * self.lr
-                change_W = X_copy[i] * change_coeff
+                change_coef = (y[i] - z) * self.lr
+                change_W = X[i] * change_coef
                 change_W = change_W.reshape(-1, 1)
                 self.W += change_W
 
+            current_err = self._calc_error(X, y)
+            self.errors.append(current_err)
             if deterministic > 0:
-                rounds_left -= 1
-                if rounds_left <= 0:
+                if epoch >= deterministic:
                     break
             else:
-                new_score = self.score(X, y)
-                if score - new_score < stop_thresh:
+                if lowest_err - current_err < stop_thresh:
                     num_bad_rounds += 1
                     if num_bad_rounds >= num_stopping_rounds:
                         break
                 else:
                     num_bad_rounds = 0
-                score = new_score
+            if current_err < lowest_err:
+                lowest_err = current_err
 
         return self
 
@@ -90,10 +90,10 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
             array, shape (n_samples,)
                 Predicted target values per element in X.
         """
-        num_instances = len(X)
-        b = np.ones((num_instances, 1))
+        h, w = X.shape
+        b = np.ones((h, 1))
         X_b = np.append(X, b, axis=1)
-        z = np.dot(X_b , self.W)
+        z = np.dot(X_b, self.W)
         z = np.where(z > 0, 1, 0)
         return z
 
@@ -106,14 +106,19 @@ class PerceptronClassifier(BaseEstimator,ClassifierMixin):
         W = np.zeros((size + 1, 1))
         return W
 
-    def score(self, X, y):
-        num_instances = len(X)
-        b = np.ones((num_instances, 1))
-        X_b = np.append(X, b, axis=1)
-        z = np.dot(X_b , self.W)
+    def _calc_error(self, X, y):
+        z = np.dot(X, self.W)
         z = np.where(z > 0, 1, 0)
         diff = np.absolute((z - y))
-        acc = 1 - (np.sum(diff) / len(diff))
+        error = np.sum(diff) / len(diff)
+        return error
+
+    def score(self, X, y, sample_weight=None):
+        h, w = X.shape
+        b = np.ones((h, 1))
+        X_b = np.append(X, b, axis=1)
+        error = self._calc_error(X_b, y)
+        acc = 1 - error
 
         return acc
 
