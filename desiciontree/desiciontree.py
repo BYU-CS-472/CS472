@@ -6,16 +6,13 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 #   * fit
 #   * score
 
-class DTClassifier(BaseEstimator,ClassifierMixin)::
+class DTClassifier(BaseEstimator,ClassifierMixin):
 
-    def __init__(self):
+    def __init__(self,validation_size=0):
         """ Initialize class with chosen hyperparameters.
 
         Args:
-            hidden_layer_widths (list(int)): A list of integers which defines the width of each hidden layer
-            lr (float): A learning rate / step size.
-            shuffle: Whether to shuffle the training data each epoch. DO NOT SHUFFLE for evaluation / debug datasets.
-
+			validation_size is what portion of the dataset should be used for pruning
         Example:
             DT  = DTClassifier()
         """
