@@ -9,14 +9,14 @@ class KNNClassifier(BaseEstimator,ClassifierMixin):
         Args:
             columntype for each column tells you if continues[real] or if nominal.
             weight_type: inverse_distance voting or if non distance weighting. Options = ["no_weight","inverse_distance"]
-        """"
+        """
         self.columntype = columntype
         self.weight_type = weight_type
 
 
 
     def fit(self,data,labels):
-    """ Fit the data; run the algorithm (for this lab really just saves the data :D)
+        """ Fit the data; run the algorithm (for this lab really just saves the data :D)
         Args:
             X (array-like): A 2D numpy array with the training data, excluding targets
             y (array-like): A 2D numpy array with the training targets
@@ -36,7 +36,6 @@ class KNNClassifier(BaseEstimator,ClassifierMixin):
 
     #Returns the Mean score given input data and labels
     def score(self,data,labels):
-         def score(self, X, y):
         """ Return accuracy of model on a given dataset. Must implement own score function.
         Args:
             X (array-like): A 2D numpy array with data, excluding targets
