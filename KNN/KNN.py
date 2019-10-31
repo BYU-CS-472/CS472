@@ -1,6 +1,5 @@
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
-from tools import shuffle
 
 class KNNClassifier(BaseEstimator,ClassifierMixin):
 
