@@ -4,7 +4,7 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 class KNNClassifier(BaseEstimator,ClassifierMixin):
 
 
-    def __init__(self,columntype=[],weight_type='inverse_distance'): ## add parameters here
+    def __init__(self,labeltype=[],weight_type='inverse_distance'): ## add parameters here
         """
         Args:
             columntype for each column tells you if continues[real] or if nominal.
