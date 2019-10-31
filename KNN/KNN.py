@@ -4,14 +4,16 @@ from tools import shuffle
 
 class KNNClassifier(BaseEstimator,ClassifierMixin):
 
+
     def __init__(self,columntype=[],weight_type='inverse_distance'): ## add parameters here
         """
         Args:
             columntype for each column tells you if continues[real] or if nominal.
-            weight_type: inverse_distance voting or if non distance waiting option = ["no_weight","inverse_distance"]
+            weight_type: inverse_distance voting or if non distance weighting. Options = ["no_weight","inverse_distance"]
         """"
         self.columntype = columntype
         self.weight_type = weight_type
+
 
 
     def fit(self,data,labels):
