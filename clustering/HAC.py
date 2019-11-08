@@ -31,6 +31,7 @@ class HACClassifier(BaseEstimator,ClusterMixin):
                 write("\n")
                 write("{:d}\n".format(size of cluster))
                 write("{:.4f}\n\n".format(SSE of cluster))
+            f.close()
         """
 
 
