@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.base import BaseEstimator, ClusterMixin
 
-class HACClassifier(BaseEstimator,ClusterMixin):
+class HACClustering(BaseEstimator,ClusterMixin):
 
     def __init__(self,k=3,link_type='single'): ## add parameters here
         """

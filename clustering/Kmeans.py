@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.base import BaseEstimator, ClusterMixin
 
-class KMEANSClassifier(BaseEstimator,ClusterMixin):
+class KMEANSClustering(BaseEstimator,ClusterMixin):
 
     def __init__(self,k=3): ## add parameters here
         """
