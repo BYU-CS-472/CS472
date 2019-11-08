@@ -19,16 +19,15 @@ class KMEANSClassifier(BaseEstimator,ClusterMixin):
             self: this allows this to be chained, e.g. model.fit(X,y).predict(X_test)
         """
         return self
-    def print_clusters(self):
+    def save_clusters(self,filename):
         """
+            f = open(filename) 
             Used for grading.
-            Print(# of clusters)
-            print(Total SSE of all Clusters)
-            print() <-- space in between
-            for each cluster:
-                print(Centroid_Value)
-                print(# of instances for cluster)
-                print(SSE)
-                print() <-- space in between clusters
-
+            write("{:d}\n".format(k))
+            write("{:.4f}\n\n".format(total SSE))
+            for each cluster and centroid:
+                write(np.array2string(centroid,precision=4,seperator=","))
+                write("\n")
+                write("{:d}\n".format(size of cluster))
+                write("{:.4f}\n\n".format(SSE of cluster))
         """
