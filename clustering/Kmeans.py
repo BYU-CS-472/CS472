@@ -3,12 +3,14 @@ from sklearn.base import BaseEstimator, ClusterMixin
 
 class KMEANSClustering(BaseEstimator,ClusterMixin):
 
-    def __init__(self,k=3): ## add parameters here
+    def __init__(self,k=3,debug=True): ## add parameters here
         """
         Args:
             k = how many final clusters to have
+            debug = if debug is true use the first k instances as the initial centroids otherwise choose random points as the initial centroids.
         """
         self.k = k
+        self.debug = debug
 
     def fit(self,X,y=None):
         """ Fit the data; In this lab this will make the K clusters :D
