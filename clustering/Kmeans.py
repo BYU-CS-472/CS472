@@ -3,7 +3,7 @@ from sklearn.base import BaseEstimator, ClusterMixin
 
 class KMEANSClustering(BaseEstimator,ClusterMixin):
 
-    def __init__(self,k=3,debug=True): ## add parameters here
+    def __init__(self,k=3,debug=False): ## add parameters here
         """
         Args:
             k = how many final clusters to have
