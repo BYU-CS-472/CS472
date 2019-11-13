@@ -22,7 +22,7 @@ class HACClustering(BaseEstimator,ClusterMixin):
         return self
     def save_clusters(self,filename):
         """
-            f = open(filename) 
+            f = open(filename,"w+") 
             Used for grading.
             write("{:d}\n".format(k))
             write("{:.4f}\n\n".format(total SSE))
