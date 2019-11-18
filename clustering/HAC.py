@@ -27,7 +27,7 @@ class HACClustering(BaseEstimator,ClusterMixin):
             write("{:d}\n".format(k))
             write("{:.4f}\n\n".format(total SSE))
             for each cluster and centroid:
-                write(np.array2string(centroid,precision=4,seperator=","))
+                write(np.array2string(centroid,precision=4,separator=","))
                 write("\n")
                 write("{:d}\n".format(size of cluster))
                 write("{:.4f}\n\n".format(SSE of cluster))
