@@ -8,7 +8,7 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 
 class DTClassifier(BaseEstimator,ClassifierMixin):
 
-    def __init__(self,validation_size=0):
+    def __init__(self,counts=None):
         """ Initialize class with chosen hyperparameters.
 
         Args:
