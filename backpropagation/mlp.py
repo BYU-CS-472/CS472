@@ -6,21 +6,21 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 #   * fit
 #   * score
 #   * get_weights
-#   They must take at least the parameters below, exactly as specified. The output of
-#   get_weights must be in the same format as the example provided.
+#   They must take at least the parameters below, exactly as specified.
 
 class MLPClassifier(BaseEstimator,ClassifierMixin):
 
-    def __init__(self, hidden_layer_widths, lr=.1, momentum=0, shuffle=True):
+    def __init__(self,lr=.1, momentum=0, shuffle=True,hidden_layer_widths=None):
         """ Initialize class with chosen hyperparameters.
 
         Args:
-            hidden_layer_widths (list(int)): A list of integers which defines the width of each hidden layer
             lr (float): A learning rate / step size.
-            shuffle: Whether to shuffle the training data each epoch. DO NOT SHUFFLE for evaluation / debug datasets.
-
+            shuffle(boolean): Whether to shuffle the training data each epoch. DO NOT SHUFFLE for evaluation / debug datasets.
+            momentum(float): The momentum coefficent 
+        Optional Args (Args we think will make your life easier):
+            hidden_layer_widths (list(int)): A list of integers which defines the width of each hidden layer if hidden layer is none do twice as many hidden nodes as input nodes.
         Example:
-            mlp = MLPClassifier([3,3]),  <--- this will create a model with two hidden layers, both 3 nodes wide
+            mlp = MLPClassifier(lr=.2,momentum=.5,shuffle=False,hidden_layer_widths = [3,3]),  <--- this will create a model with two hidden layers, both 3 nodes wide
         """
         self.hidden_layer_widths
         self.lr = lr
@@ -34,8 +34,8 @@ class MLPClassifier(BaseEstimator,ClassifierMixin):
         Args:
             X (array-like): A 2D numpy array with the training data, excluding targets
             y (array-like): A 2D numpy array with the training targets
+        Optional Args (Args we think will make your life easier):
             initial_weights (array-like): allows the user to provide initial weights
-
         Returns:
             self: this allows this to be chained, e.g. model.fit(X,y).predict(X_test)
 
@@ -46,10 +46,8 @@ class MLPClassifier(BaseEstimator,ClassifierMixin):
 
     def predict(self, X):
         """ Predict all classes for a dataset X
-
         Args:
             X (array-like): A 2D numpy array with the training data, excluding targets
-
         Returns:
             array, shape (n_samples,)
                 Predicted target values per element in X.
