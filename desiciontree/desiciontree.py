@@ -10,11 +10,20 @@ class DTClassifier(BaseEstimator,ClassifierMixin):
 
     def __init__(self,counts=None):
         """ Initialize class with chosen hyperparameters.
-
         Args:
-			validation_size is what portion of the dataset should be used for pruning
+        Optional Args (Args we think will make your life easier):
+            counts: A list of Ints that tell you how many types of each feature there are
         Example:
             DT  = DTClassifier()
+            or
+            DT = DTClassifier(count = [2,3,2,2])
+            Dataset = 
+            [[0,1,0,0],
+            [1,2,1,1],
+            [0,1,1,0],
+            [1,2,0,1],
+            [0,0,1,1]]
+
         """
 
     def fit(self, X, y):
@@ -45,11 +54,11 @@ class DTClassifier(BaseEstimator,ClassifierMixin):
 
 
     def score(self, X, y):
-        """ Return accuracy of model on a given dataset. Must implement own score function.
+        """ Return accuracy(Classification Acc) of model on a given dataset. Must implement own score function.
 
         Args:
             X (array-like): A 2D numpy array with data, excluding targets
-            y (array-li    def _shuffle_data(self, X, y):
+            y (array-like): A 2D numpy array of the targets 
         """
         return 0
 
