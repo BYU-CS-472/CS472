@@ -7,10 +7,10 @@ class KNNClassifier(BaseEstimator,ClassifierMixin):
     def __init__(self,columntype=[],weight_type='inverse_distance'): ## add parameters here
         """
         Args:
-            columntype for each column tells you if continues[real] or if nominal.
+            columntype for each column tells you if continues[real] or if nominal[categoritcal].
             weight_type: inverse_distance voting or if non distance weighting. Options = ["no_weight","inverse_distance"]
         """
-        self.columntype = columntype
+        self.columntype = columntype #Note This won't be needed until part 5
         self.weight_type = weight_type
 
 
