@@ -74,7 +74,7 @@ import numpy as np
 ```
 
 ### Intro to Numpy Arrays
-Numpy is Python's premier numerical array module. While Numpy arrays handle n-dimensions, this toolkit is tailored for .arff file data, which is generally 2-dimensional. The `.shape` property of a Numpy array will return a tuple of the array dimensions (rows, columns).
+Numpy is Python's premier numerical array module. While Numpy arrays handle n-dimensions, we typically use .arff file data, which is generally 2-dimensional. The `.shape` property of a Numpy array will return a tuple of the array dimensions (rows, columns).
 
 The array can also be "sliced" to obtain subsets:
 ```
@@ -144,7 +144,7 @@ new_arff = Arff(credit_approxal, row_idx = 1, label_count=1)
 new_arff = Arff(credit_approxal, row_idx = [2,3,8], col_idx = [1,2,3], label_count=1)
 ```
 
-This ```new_Arff``` object will should copy the numpy array data underlying the original Arff. ```Arff.copy()``` can also be used to make a safe, deep copy of an Arff object.
+This ```new_Arff``` object will copy the numpy array data underlying the original Arff. ```Arff.copy()``` can also be used to make a safe, deep copy of an Arff object.
 
 To get the features of an Arff object as another Arff object, one can simply call:
 ```credit_approval.get_features()```
@@ -182,7 +182,7 @@ at least the `fit()`, `predict()`, and `score()` functions. It should probably a
 A tiny graphing wrapper around matplotlib is included. See ```graph_tools.py```.
 
 ```
-from toolkit import graph_tools
+from tools import graph_tools
 import matplotlib.pyplot as plt
 import numpy as np
 
