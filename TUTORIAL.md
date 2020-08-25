@@ -3,7 +3,7 @@
 This short tutorial demonstrates some basic functionality of Python and NumPy, as well as a custom Arff loader class.
 
 ### Environment
-For reproducibility, it's important to create an "environment" that will house the precise set of modules/versions that our code is guaranteed to work with. They are many ways to manage environments, including Anaconda (or mini-conda), virtualenv, and Docker. For this class, we recommend using [Anaconda](https://www.anaconda.com/distribution/#download-section). After installing Anaconda, you can create an environment. For CS 472, we should be able to run your code with an environment created with the commandline command:
+For reproducibility, it's important to create an "environment" that will house the precise set of modules/versions that our code is guaranteed to work with. There are many ways to manage environments, including Anaconda (or mini-conda), virtualenv, and Docker. For this class, we recommend using [Anaconda](https://www.anaconda.com/distribution/#download-section). After installing Anaconda, you can create an environment. For CS 472, we should be able to run your code with an environment created with the commandline command:
 
  ```
  conda create -n cs472 matplotlib=3.0.3 numpy=1.16.3 numpy-base=1.16.3 pandas=0.24.2 python=3.6.8 scikit-learn=0.20.3 scipy=1.2.1
