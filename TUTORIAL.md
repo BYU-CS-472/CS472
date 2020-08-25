@@ -73,8 +73,40 @@ First, import the modules you will be using.
 import numpy as np
 ```
 
+#### Custom modules (optional)
+To import a custom module (e.g. the ```tools``` module in this repository), your computer needs to know where the module to be imported is located. The easiest way is to have the module be in your CWD (current working directory). Otherwise, you can add the path to that module to your system path. An easy way to do this without reconfiguring your system is to have Python do it at runtime. For instance, if you wanted to access the ```tools``` module from this repository, you might do one of the following:
+
+```
+import sys
+sys.path.append("/path/to/this/repo") # should be an absolute path OR a path relative to the CWD
+import tools
+
+tools.graph_tools.graph(...)
+```
+
+```
+import sys
+sys.path.append("/path/to/this/repo")
+from tools import graph_tools
+
+graph_tools.graph(...)
+```
+
+```
+import sys
+sys.path.append("/path/to/this/repo/tools")
+import graph_tools
+
+graph_tools.graph(...)
+```
+
+If you are using PyCharm, you should add the folder containing the module you wish to import to the "Project Sources."
+
+
 ### Intro to Numpy Arrays
-Numpy is Python's premier numerical array module. While Numpy arrays handle n-dimensions, we typically use .arff file data, which is generally 2-dimensional. The `.shape` property of a Numpy array will return a tuple of the array dimensions (rows, columns).
+Numpy is Python's premier numerical array module. While Numpy arrays handle n-dimensions, for this course, our data will generally be 2D, which you can think of as table with rows and columns. A row of data may alternatively be referred to as an observation, record, instance, or example, while a column may be referred to as a feature or variable. If the column is a feature/variable the model is trying to predict, it will usually be referred to as a target, label, or class.
+
+The `.shape` property of a Numpy array will return a tuple of the array dimensions. For 2D data, this would return the tuple: (# of rows, # of columns).
 
 The array can also be "sliced" to obtain subsets:
 ```
@@ -102,9 +134,9 @@ You are responsible for loading data from Comma-Separated Values (`.csv`) and At
 
 
 #### Arff object class (optional)
-If you choose to use the `arff` class, it has some useful features for dealing with `arff` files. However, *you should still plan on only passing the underlying data (i.e. `my_arff.data`, a NumPy array) to your learner class `fit`, `predict`, etc. functions.*
+If you choose to use the `arff` class provided in this repository under the "tools" folder, it has some additional useful features for dealing with `arff` files. However, *you should still plan on only passing the underlying data (i.e. `my_arff.data`, a NumPy array) to your learner class `fit`, `predict`, etc. functions*, as scikit-learn generally expects input data to be in the form of a numpy array.
 
-If you're using the provided `Arff` class, `arff.py` should be in the same folder as your script. Now we can load `.arff` files using the `arff` module:
+If you're using the provided `Arff` class, `arff.py` should be in the same folder as your script or added to the system path (as described above in the Modules section). Now we can load `.arff` files using the `arff` module:
 
 ```
 import arff
@@ -176,12 +208,14 @@ print(features.shape)
 ### Creating Learners
 
 You will be creating classes for various machine learning models this semester, e.g. "MyPerceptron". This should inherit from `sklearn.linear_model` and override
-at least the `fit()`, `predict()`, and `score()` functions. It should probably also have a constructor, i.e. `def __init__(self, argument1, argument2):` that can be used to initialize learner weights, hyperparameters, etc.
+at least the `fit()`, `predict()`, and `score()` functions. It should probably also have a constructor, i.e. `def __init__(self, argument1, argument2):` that can be used to initialize learner weights, hyperparameters, etc. The general requirements for necessary functions and function signatures are provided for you in this repository for each project (e.g. https://github.com/cs472ta/CS472/blob/master/perceptron/perceptron.py).
 
 ### Graphing
-A tiny graphing wrapper around matplotlib is included. See ```graph_tools.py```.
+A tiny graphing wrapper around matplotlib is included. See ```graph_tools.py``` under the ```tools``` folder.
 
 ```
+# This script assumes your PWD is the repo directory
+
 from tools import graph_tools
 import matplotlib.pyplot as plt
 import numpy as np
