@@ -3,45 +3,9 @@
 This short tutorial demonstrates some basic functionality of Python and NumPy, as well as a custom Arff loader class.
 
 ### Environment
-For reproducibility, it's important to create an "environment" that will house the precise set of modules/versions that our code is guaranteed to work with. There are many ways to manage environments, including Anaconda (or mini-conda), virtualenv, and Docker. For this class, we recommend using [Anaconda](https://www.anaconda.com/distribution/#download-section). After installing Anaconda, you can create an environment. For CS 472, we should be able to run your code with an environment created with the commandline command:
+Your [Python environment](https://docs.python.org/3/library/venv.html#:~:text=A%20virtual%20environment%20is%20a,part%20of%20your%20operating%20system.) contains the Python interpreter and all other dependencies required to run your code. There are several types of environments to choose from such as [venv](https://docs.python.org/3/library/venv.html#module-venv), (Conda)[https://docs.conda.io/en/latest/], or (Pipenv)[https://pypi.org/project/pipenv/]. You may use whichever type of environment you like. You may also use (Google Colab)[https://colab.research.google.com] which allows you to write and execute Python in a Jupyter notebook in your browser. 
 
- ```
- conda create -n cs472 matplotlib=3.0.3 numpy=1.16.3 numpy-base=1.16.3 pandas=0.24.2 python=3.6.8 scikit-learn=0.20.3 scipy=1.2.1
- ```
-
-To activate the CS472 environment you just created, run:
-
-```conda activate cs472```
-
-A good practice is to store your environment as a `.yaml` file.
-```
-name: cs472
-channels:
-  - defaults
-dependencies:
-  - matplotlib=3.0.3
-  - numpy=1.16.3
-  - numpy-base=1.16.3
-  - pandas=0.24.2
-  - python=3.6.8
-  - scikit-learn=0.20.3
-  - scipy=1.2.1
-  - pip=19.1.1
-  - pip:
-    - liac-arff==2.3.1
-```
-
-To create an environment from a `.yaml` file, you can run:
-
-```conda env create -f MY_ENV.yaml```
-
-To export an evironment to a `.yaml` file, run:
-
-```conda env export > environment.yaml```
-
-To update your environment after modifying the `.yaml` file, first *activate your environment*, then run:
-
-```conda env update -f environment.yaml```
+If you choose to do your lab in a Jupyter notebook, you may include the lab report as part of the same file. 
 
 #### Jupyter Notebooks
 To add your environment to a Jupyter Notebook:
