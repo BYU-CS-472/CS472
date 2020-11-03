@@ -3,7 +3,7 @@
 This short tutorial demonstrates some basic functionality of Python and NumPy, as well as a custom Arff loader class.
 
 ### Environment
-Your [Python environment](https://docs.python.org/3/library/venv.html#:~:text=A%20virtual%20environment%20is%20a,part%20of%20your%20operating%20system.) contains the Python interpreter and all other dependencies required to run your code. There are several types of environments to choose from such as [venv](https://docs.python.org/3/library/venv.html#module-venv), (Conda)[https://docs.conda.io/en/latest/], or (Pipenv)[https://pypi.org/project/pipenv/]. You may use whichever type of environment you like. You may also use (Google Colab)[https://colab.research.google.com] which allows you to write and execute Python in a Jupyter notebook in your browser. 
+Your [Python environment](https://docs.python.org/3/library/venv.html#:~:text=A%20virtual%20environment%20is%20a,part%20of%20your%20operating%20system.) contains the Python interpreter and all other dependencies required to run your code. There are several types of environments to choose from such as [venv](https://docs.python.org/3/library/venv.html#module-venv), [Conda](https://docs.conda.io/en/latest/), or [Pipenv](https://pypi.org/project/pipenv/). You may use whichever type of environment you like. You may also use [Google Colab](https://colab.research.google.com) which allows you to write and execute Python in a Jupyter notebook in your browser. 
 
 If you choose to do your lab in a Jupyter notebook, you may include the lab report as part of the same file. 
 
