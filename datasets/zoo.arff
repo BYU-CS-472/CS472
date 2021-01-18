@@ -1,0 +1,189 @@
+%1. Title: Zoo database
+%
+%2. Source Information
+%   -- Creator: Richard Forsyth
+%   -- Donor: Richard S. Forsyth 
+%             8 Grosvenor Avenue
+%             Mapperley Park
+%             Nottingham NG3 5DX
+%             0602-621676
+%   -- Date: 5/15/1990
+% 
+%3. Past Usage:
+%   -- None known other than what is shown in Forsyth's PC/BEAGLE User's Guide.
+%
+%4. Relevant Information:
+%   -- A simple database containing 17 Boolean-valued attributes.  The "type"
+%      attribute appears to be the class attribute.  Here is a breakdown of
+%      which animals are in which type: (I find it unusual that there are
+%      2 instances of "frog" and one of "girl"!)
+%
+%      Class# Set of animals:
+%      ====== ===============================================================
+%           1 (41) aardvark, antelope, bear, boar, buffalo, calf,
+%                  cavy, cheetah, deer, dolphin, elephant,
+%                  fruitbat, giraffe, girl, goat, gorilla, hamster,
+%                  hare, leopard, lion, lynx, mink, mole, mongoose,
+%                  opossum, oryx, platypus, polecat, pony,
+%                  porpoise, puma, pussycat, raccoon, reindeer,
+%                  seal, sealion, squirrel, vampire, vole, wallaby,wolf
+%           2 (20) chicken, crow, dove, duck, flamingo, gull, hawk,
+%                  kiwi, lark, ostrich, parakeet, penguin, pheasant,
+%                  rhea, skimmer, skua, sparrow, swan, vulture, wren
+%           3 (5)  pitviper, seasnake, slowworm, tortoise, tuatara 
+%           4 (13) bass, carp, catfish, chub, dogfish, haddock,
+%                  herring, pike, piranha, seahorse, sole, stingray, tuna
+%           5 (4)  frog, frog, newt, toad 
+%           6 (8)  flea, gnat, honeybee, housefly, ladybird, moth, termite, wasp
+%           7 (10) clam, crab, crayfish, lobster, octopus,
+%                  scorpion, seawasp, slug, starfish, worm
+%
+%5. Number of Instances: 101
+%
+%6. Number of Attributes: 18 (animal name, 15 Boolean attributes, 2 numerics)
+%
+%7. Attribute Information: (name of attribute and type of value domain)
+%   X. animal name:      Unique for each instance
+%   1. hair		Boolean
+%   2. feathers		Boolean
+%   3. eggs		Boolean
+%   4. milk		Boolean
+%   5. airborne		Boolean
+%   6. aquatic		Boolean
+%   7. predator		Boolean
+%   8. toothed		Boolean
+%   9. backbone		Boolean
+%  10. breathes		Boolean
+%  11. venomous		Boolean
+%  12. fins		Boolean
+%  13. legs		Numeric (set of values: {0,2,4,5,6,8})
+%  14. tail		Boolean
+%  15. domestic		Boolean
+%  16. catsize		Boolean
+%  17. type		Numeric (integer values in range [1,7])
+%
+%8. Missing Attribute Values: None
+%
+%9. Class Distribution: Given above
+@RELATION description_animal_class
+
+@Attribute hair  {F,T}
+@Attribute feathers  {F,T}
+@Attribute eggs  {F,T}
+@Attribute milk  {F,T}
+@Attribute airborne  {F,T}
+@Attribute predator  {F,T}
+@Attribute aquatic {F,T}
+@Attribute toothed  {F,T}
+@Attribute backbone  {F,T}
+@Attribute breathes  {F,T}
+@Attribute venomous  {F,T}
+@Attribute fins  {F,T}
+@Attribute legs {0,2,4,5,6,7,8} 
+@Attribute tails  {F,T}
+@Attribute domestic  {F,T}
+@Attribute catsize  {F,T}
+@Attribute type  {cT,c2,c3,c4,c5,c6,c7}
+
+@DATA
+T,F,F,T,F,F,T,T,T,T,F,F,4,F,F,T,cT
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,F,T,cT
+F,F,T,F,F,T,T,T,T,F,F,T,0,T,F,F,c4
+T,F,F,T,F,F,T,T,T,T,F,F,4,F,F,T,cT
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,T,cT
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,F,T,cT
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,T,T,cT
+F,F,T,F,F,T,F,T,T,F,F,T,0,T,T,F,c4
+F,F,T,F,F,T,T,T,T,F,F,T,0,T,F,F,c4
+T,F,F,T,F,F,F,T,T,T,F,F,4,F,T,F,cT
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,T,cT
+F,T,T,F,T,F,F,F,T,T,F,F,2,T,T,F,c2
+F,F,T,F,F,T,T,T,T,F,F,T,0,T,F,F,c4
+F,F,T,F,F,F,T,F,F,F,F,F,0,F,F,F,c7
+F,F,T,F,F,T,T,F,F,F,F,F,4,F,F,F,c7
+F,F,T,F,F,T,T,F,F,F,F,F,6,F,F,F,c7
+F,T,T,F,T,F,T,F,T,T,F,F,2,T,F,F,c2
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,F,T,cT
+F,F,T,F,F,T,T,T,T,F,F,T,0,T,F,T,c4
+F,F,F,T,F,T,T,T,T,T,F,T,0,T,F,T,cT
+F,T,T,F,T,F,F,F,T,T,F,F,2,T,T,F,c2
+F,T,T,F,T,T,F,F,T,T,F,F,2,T,F,F,c2
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,F,T,cT
+F,T,T,F,T,F,F,F,T,T,F,F,2,T,F,T,c2
+F,F,T,F,F,F,F,F,F,T,F,F,6,F,F,F,c6
+F,F,T,F,F,T,T,T,T,T,F,F,4,F,F,F,c5
+F,F,T,F,F,T,T,T,T,T,T,F,4,F,F,F,c5
+T,F,F,T,T,F,F,T,T,T,F,F,2,T,F,F,cT
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,F,T,cT
+T,F,F,T,F,F,T,T,T,T,F,F,2,F,T,T,cT
+F,F,T,F,T,F,F,F,F,T,F,F,6,F,F,F,c6
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,T,T,cT
+T,F,F,T,F,F,F,T,T,T,F,F,2,F,F,T,cT
+F,T,T,F,T,T,T,F,T,T,F,F,2,T,F,F,c2
+F,F,T,F,F,T,F,T,T,F,F,T,0,T,F,F,c4
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,T,F,cT
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,F,F,cT
+F,T,T,F,T,F,T,F,T,T,F,F,2,T,F,F,c2
+F,F,T,F,F,T,T,T,T,F,F,T,0,T,F,F,c4
+T,F,T,F,T,F,F,F,F,T,T,F,6,F,T,F,c6
+T,F,T,F,T,F,F,F,F,T,F,F,6,F,F,F,c6
+F,T,T,F,F,F,T,F,T,T,F,F,2,T,F,F,c2
+F,F,T,F,T,F,T,F,F,T,F,F,6,F,F,F,c6
+F,T,T,F,T,F,F,F,T,T,F,F,2,T,F,F,c2
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,T,cT
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,T,cT
+F,F,T,F,F,T,T,F,F,F,F,F,6,F,F,F,c7
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,T,cT
+T,F,F,T,F,T,T,T,T,T,F,F,4,T,F,T,cT
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,F,cT
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,T,cT
+T,F,T,F,T,F,F,F,F,T,F,F,6,F,F,F,c6
+F,F,T,F,F,T,T,T,T,T,F,F,4,T,F,F,c5
+F,F,T,F,F,T,T,F,F,F,F,F,8,F,F,T,c7
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,F,cT
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,F,T,cT
+F,T,T,F,F,F,F,F,T,T,F,F,2,T,F,T,c2
+F,T,T,F,T,F,F,F,T,T,F,F,2,T,T,F,c2
+F,T,T,F,F,T,T,F,T,T,F,F,2,T,F,T,c2
+F,T,T,F,T,F,F,F,T,T,F,F,2,T,F,F,c2
+F,F,T,F,F,T,T,T,T,F,F,T,0,T,F,T,c4
+F,F,T,F,F,T,T,T,T,F,F,T,0,T,F,F,c4
+F,F,T,F,F,F,T,T,T,T,T,F,0,T,F,F,c3
+T,F,T,T,F,T,T,F,T,T,F,F,4,T,F,T,cT
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,T,cT
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,T,T,cT
+F,F,F,T,F,T,T,T,T,T,F,T,0,T,F,T,cT
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,T,cT
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,T,T,cT
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,T,cT
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,T,T,cT
+F,T,T,F,F,F,T,F,T,T,F,F,2,T,F,T,c2
+F,F,F,F,F,F,T,F,F,T,T,F,8,T,F,F,c7
+F,F,T,F,F,T,F,T,T,F,F,T,0,T,F,F,c4
+T,F,F,T,F,T,T,T,T,T,F,T,0,F,F,T,cT
+T,F,F,T,F,T,T,T,T,T,F,T,2,T,F,T,cT
+F,F,F,F,F,T,T,T,T,F,T,F,0,T,F,F,c3
+F,F,T,F,F,T,T,F,F,F,T,F,0,F,F,F,c7
+F,T,T,F,T,T,T,F,T,T,F,F,2,T,F,F,c2
+F,T,T,F,T,T,T,F,T,T,F,F,2,T,F,F,c2
+F,F,T,F,F,F,T,T,T,T,F,F,0,T,F,F,c3
+F,F,T,F,F,F,F,F,F,T,F,F,0,F,F,F,c7
+F,F,T,F,F,T,F,T,T,F,F,T,0,T,F,F,c4
+F,T,T,F,T,F,F,F,T,T,F,F,2,T,F,F,c2
+T,F,F,T,F,F,F,T,T,T,F,F,2,T,F,F,cT
+F,F,T,F,F,T,T,F,F,F,F,F,5,F,F,F,c7
+F,F,T,F,F,T,T,T,T,F,T,T,0,T,F,T,c4
+F,T,T,F,T,T,F,F,T,T,F,F,2,T,F,T,c2
+F,F,T,F,F,F,F,F,F,T,F,F,6,F,F,F,c6
+F,F,T,F,F,T,F,T,T,T,F,F,4,F,F,F,c5
+F,F,T,F,F,F,F,F,T,T,F,F,4,T,F,T,c3
+F,F,T,F,F,F,T,T,T,T,F,F,4,T,F,F,c3
+F,F,T,F,F,T,T,T,T,F,F,T,0,T,F,T,c4
+T,F,F,T,T,F,F,T,T,T,F,F,2,T,F,F,cT
+T,F,F,T,F,F,F,T,T,T,F,F,4,T,F,F,cT
+F,T,T,F,T,F,T,F,T,T,F,F,2,T,F,T,c2
+T,F,F,T,F,F,F,T,T,T,F,F,2,T,F,T,cT
+T,F,T,F,T,F,F,F,F,T,T,F,6,F,F,F,c6
+T,F,F,T,F,F,T,T,T,T,F,F,4,T,F,T,cT
+F,F,T,F,F,F,F,F,F,T,F,F,0,F,F,F,c7
+F,T,T,F,T,F,F,F,T,T,F,F,2,T,F,F,c2
