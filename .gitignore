@@ -17,8 +17,6 @@ data/prepare_online_data/cropped_images/
 
 # Passwords and cookies
 *.log
-password.txt
-username.txt
 log/
 cookies/
 logs/
@@ -26,11 +24,8 @@ pages/
 Notes/
 dev/
 *.log
-*.csv
 *.ods
 *.html
-#*.txt
-content.txt
 *.token
 **token*
 credentials.json
@@ -69,8 +64,6 @@ var/
 *.spec
 
 # Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
 
 # Unit test / coverage reports
 htmlcov/
