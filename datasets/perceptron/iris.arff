@@ -63,10 +63,10 @@
 
 @RELATION iris
 
-@ATTRIBUTE sepallength	Continuous
-@ATTRIBUTE sepalwidth 	Continuous
-@ATTRIBUTE petallength 	Continuous
-@ATTRIBUTE petalwidth	Continuous
+@ATTRIBUTE sepallength  real
+@ATTRIBUTE sepalwidth 	real
+@ATTRIBUTE petallength 	real
+@ATTRIBUTE petalwidth	real
 @ATTRIBUTE class 	{Iris-setosa,Iris-versicolor,Iris-virginica}
 
 @DATA
