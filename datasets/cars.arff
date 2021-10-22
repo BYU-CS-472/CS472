@@ -10,7 +10,7 @@
 %3. Past Usage:
 %
 %   The hierarchical decision model, from which this dataset is
-%   derived, was first presented in 
+%   derived, was first presented in
 %
 %   M. Bohanec and V. Rajkovic: Knowledge acquisition and explanation for
 %   multi-attribute decision making. In 8th Intl Workshop on Expert
@@ -77,20 +77,20 @@
 %
 %   class      N          N[%]
 %   -----------------------------
-%   unacc     1210     (70.023 %) 
-%   acc        384     (22.222 %) 
-%   good        69     ( 3.993 %) 
-%   v-good      65     ( 3.762 %) 
+%   unacc     1210     (70.023 %)
+%   acc        384     (22.222 %)
+%   good        69     ( 3.993 %)
+%   v-good      65     ( 3.762 %)
 %
 @RELATION cars
 
-@ATTRIBUTE	buying       { vhigh, high, med, low }
-@ATTRIBUTE	maint        { vhigh, high, med, low }
-@ATTRIBUTE	doors        { 2, 3, 4, 5more }
-@ATTRIBUTE	persons      { 2, 4, more }
-@ATTRIBUTE	lug_boot     { small, med, big }
-@ATTRIBUTE	safety       { low, med, high }
-@ATTRIBUTE	class       { unacc, acc, good, vgood }
+@ATTRIBUTE	buying       {vhigh,high,med,low}
+@ATTRIBUTE	maint        {vhigh,high,med,low}
+@ATTRIBUTE	doors        {2,3,4,5more }
+@ATTRIBUTE	persons      {2,4,more }
+@ATTRIBUTE	lug_boot     {small,med,big}
+@ATTRIBUTE	safety       {low,med,high}
+@ATTRIBUTE	class       {unacc,acc,good,vgood}
 
 @DATA
 vhigh,vhigh,2,2,small,low,unacc
