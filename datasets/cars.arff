@@ -84,13 +84,13 @@
 %
 @RELATION cars
 
-@ATTRIBUTE	buying       { vhigh, high, med, low }
-@ATTRIBUTE	maint        { vhigh, high, med, low }
-@ATTRIBUTE	doors        { 2, 3, 4, 5more }
-@ATTRIBUTE	persons      { 2, 4, more }
-@ATTRIBUTE	lug_boot     { small, med, big }
-@ATTRIBUTE	safety       { low, med, high }
-@ATTRIBUTE	class       { unacc, acc, good, vgood }
+@ATTRIBUTE	buying       { vhigh, high, med, low}
+@ATTRIBUTE	maint        { vhigh, high, med, low}
+@ATTRIBUTE	doors        { 2, 3, 4, 5more}
+@ATTRIBUTE	persons      { 2, 4, more}
+@ATTRIBUTE	lug_boot     { small, med, big}
+@ATTRIBUTE	safety       { low, med, high}
+@ATTRIBUTE	class       { unacc, acc, good, vgood}
 
 @DATA
 vhigh,vhigh,2,2,small,low,unacc
